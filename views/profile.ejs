@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShortHub™</title>
+  <link rel="stylesheet" href="../css/output.css">
+</head>
+
+<body style="display: flex; flex-direction: column; min-height: 140vh;">
+  <nav class="bg-white border-gray-200 p-1 text-xl dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+      <a class="flex items-center space-x-3 rtl:space-x-reverse">
+        <span class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">ShortHub™</span>
+      </a>
+
+      <div class="text-sm text-white font-semibold md:text-lg">
+        <span class="text-blue-400">Your Username:</span> - <%- data.email %>
+      </div>
+    </div>
+  </nav>
+
+  <section class=" text-black mb-5">
+    <div class="flex justify-center flex-col">
+      <div class="pt-2 pb-8 md:flex md:justify-center bg-slate-400">
+        <form id="myForm" class="flex flex-col md:flex-row md:gap-10  md:w-full md:justify-around">
+          <div class="p-4 pb-1 flex justify-center flex-col gap-4 md:w-[40%] md:ml-3">
+            <label for="url" class="text-xl font-medium ">Paste a long URL</label>
+            <input type="url" class="w-full  rounded-md p-2 md:h-[70%]" name="url" id="inputURL" />
+          </div>
+
+          <div class="p-4 pb-1 flex justify-center flex-col gap-4 md:w-[40%]">
+            <label for="url" class="text-xl font-medium">Get Your Short URL</label>
+            <div class="w-full rounded-md p-2 md:h-[70%] h-[40px] bg-slate-50 text-blue-400" id="shortURL"> </div>
+          </div>
+
+          <div class="p-4 pb-2 text-center md:w-[15%] flex items-center">
+            <input type="submit" value="Click here to Get URL"
+              class="bg-blue-600 p-2 font-semibold rounded-lg text-white hover:bg-blue-800 cursor-pointer md:py-4" />
+          </div>
+        </form>
+      </div>
+
+      <div class="w-full container md:mx-auto mt-7">
+        <div class="w-full max-w-md p-4 bg-gray-600 rounded-lg shadow md:mx-auto md:max-w-screen-xl md:w-[75%]">
+          <div class="flex items-center justify-between mb-4">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
+              Your Shorten URLs
+            </h5>
+          </div>
+          <div class="flow-root">
+
+            <ul role="list">
+              <% if (data.shortURL && data.shortURL.length> 0) { %>
+                <ul>
+                  <% data.shortURL.forEach(item=> { %>
+                    <li class="py-3 mt-2 bg-gray-800 rounded-lg">
+                      <div class="card flex justify-evenly md:justify-start p-2">
+                        <div
+                          class=" md:px-5 md:mx-5 w-[60px] h-[60px] md:h-[80px] md:w-[10%] flex justify-center items-center">
+                          <img class="" src="./../img.svg">
+                        </div>
+                        <div class="w-[75%]">
+                          <div class="info overflow-hidden text-white font-medium"> Short ID:
+                            <a href="/url/<%- item.shortId %>" target="_blank" class="text-sm text-blue-400 underline">
+                              /<%- item.shortId %>
+                            </a>
+                            <p class="text-sm mt-1 text-gray-400 font-semibold"> Redirect URL: <%- item.redirectURL %>
+                            </p>
+                            <p class="text-sm mt-1 text-gray-400 font-semibold">Total Clicks: <%-
+                                item.visitHistory.length %></p>
+                          </div>
+
+                          <div class="mt-2 flex flex-col">
+                            <div class="flex gap-3">
+                              <button
+                                class="bg-blue-500 hover:bg-blue-800 text-sm text-white py-1 rounded-sm w-[100px] mb-2"
+                                id="visitBtn" onclick="toggleVisitHistory('<%- item.shortId %>')">
+                                Visit History
+                              </button>
+
+                              <button
+                                class="bg-red-500 hover:bg-red-800 text-sm text-white py-1 rounded-sm w-[100px] mb-2"
+                                id="deleteBtn" onclick="deleteURL(this,'<%- item.shortId %>','<%- data._id %>')">
+                                Delete
+                              </button>
+                            </div>
+                            <% if (item.visitHistory && item.visitHistory.length> 0) { %>
+                              <div class="history-container" id="visitHistoryDiv_<%- item.shortId %>"
+                                style="display: none;">
+                                <% item.visitHistory.forEach(historyItem=> { %>
+                                  <div>
+                                    <p class="text-white text-sm mt-1"><%- new
+                                        Date(historyItem.timestamp).toLocaleString() %></p>
+                                  </div>
+                                  <% }) %>
+                              </div>
+                              <% } else { %>
+                                <div class="history-container" id="noVisitHistoryDiv_<%- item.shortId %>"
+                                  style="display: none;">
+                                  <p class="text-white text-sm mt-1">No visit history available</p>
+                                </div>
+                                <% } %>
+                          </div>
+
+                        </div>
+                      </div>
+                    </li>
+                    <% }) %>
+                </ul>
+                <% } else { %>
+                  <p class="text-white text-sm mt-1 font-semibold">No short URLs available.</p>
+                  <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+  <div class="mt-auto">
+    <footer class="bg-white rounded-lg shadow dark:bg-gray-900">
+      <div class="w-full max-w-screen-xl mx-auto p-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+          <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+            <span class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">ShortHub</span>
+          </a>
+   
+        </div>
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400 mt-4">© 2023 ShortHub™. All Rights Reserved.</span>
+      </div>
+    </footer>
+  </div>
+
+
+  <script src="../js/profile.js"></script>
+</body>
+
+</html>
