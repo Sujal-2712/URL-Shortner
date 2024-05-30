@@ -4,7 +4,6 @@ const URL = require("./../models/url");
 
 const auth = async (req, res, next) => {
     const token = req.cookies.jwt;
-    console.log(token);
     if (!token) {
         req.user = null;
     }

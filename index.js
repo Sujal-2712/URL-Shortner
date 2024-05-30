@@ -24,7 +24,7 @@ app.set('views',viewsPath);
 
 
 //connect database
-ConnectMongoDb(process.env.DATABaSE_URL).then((result) => {
+ConnectMongoDb(process.env.DATABASE_URL).then((result) => {
     console.log("Database Connected");
 }).catch((err) => {
     console.log(err);

@@ -37,22 +37,19 @@ async function handleUserLogin(req, res) {
 
             res.json({ message: "Successfully Login", error: 0 });
         } else {
-            res.json({ message: "Invalid ID or Password", error: 1 });
+            res.json({ message: "Invalid Email or Password", error: 1 });
         }
     } catch (error) {
-        res.json({ message: "Invalid ID or Password", error: 1 });
+        res.json({ message: "Invalid Email or Password", error: 1 });
     }
 }
 
 async function renderProfile(req, res) {
     if (req.user == null) {
-        console.log("fdkhfk")
         return res.redirect("/login");
     }
     try {
-        console.log("Here")
         const User = await user.findOne({ _id: req.user._id }).populate("shortURL");
-        // console.log(User);
         return res.render("profile", { data: User });
     } catch (error) {
         res.send(error);
@@ -62,8 +59,6 @@ async function renderProfile(req, res) {
 async function deleteURL(req, res) {
     let id = req.query.shortId;
     let userid = req.query.userid;
-    console.log(id);
-    console.log(userid);
 
     try {
         const urlData = await url.findOne({ shortId: id });

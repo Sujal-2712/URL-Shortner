@@ -6,5 +6,6 @@ const router=express.Router();
 
 router.post('/',auth,handleGenerateNewShortURL);
 router.get('/:shortID',handleRedirectURL )
-// router.get("/analytics/:shortID",handleGetAnalyticsURL);
+
+
 module.exports=router;
