@@ -76,7 +76,7 @@ document
         document.getElementById("message").innerText = data.message;
         document.getElementById(
           "shortURL"
-        ).innerHTML = `<a href="${data.redirect}" class="underline"> ${data.url} </a>`;
+        ).innerHTML = `<a href="${data.redirect}" class="underline text-blue-500"> ${data.url} </a>`;
       } else {
         document.getElementById("inputURL").value = data.redirect;
         document.getElementById(
