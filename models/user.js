@@ -15,6 +15,10 @@ const userSchema=new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'url'
     }],
+    resetPasswordOTP:{
+        type:String,
+        default: null
+    }
 })
 
 userSchema.methods.generateAuthToken= async function()

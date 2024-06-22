@@ -11,6 +11,14 @@ router.get('/login',(req,res)=>{
 
 router.get('/regi',(req,res)=>{
     res.render('regi');
+});
+
+router.get('/forgot-password',(req,res)=>{
+    res.render('forgotPassword');
+});
+
+router.get('/reset-password',(req,res)=>{
+    res.render('resetPassword');
 })
 
 

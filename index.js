@@ -24,6 +24,7 @@ app.set('views',viewsPath);
 
 
 //connect database
+console.log(process.env.DATABASE_URL);
 ConnectMongoDb(process.env.DATABASE_URL).then((result) => {
     console.log("Database Connected");
 }).catch((err) => {
@@ -41,6 +42,6 @@ app.get("/*",(req,res)=>{
 })
 
 //listening the port...
-app.listen(8000, () => {
-    console.log(`Server is running on this => http://localhost:8000`);
+app.listen(PORT, () => {
+    console.log(`Server is running on this => http://localhost:${PORT}`);
 })

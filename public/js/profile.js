@@ -29,7 +29,7 @@ function deleteURL(obj, shortId, userObjID) {
 
     req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
-        obj.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+        obj.parentElement.parentElement.remove();
       }
     };
   } catch (error) {

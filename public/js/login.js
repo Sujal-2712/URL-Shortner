@@ -6,8 +6,8 @@ document.getElementById('myForm').addEventListener('submit', async function (eve
 
       const response = await fetch('/user/login', {
         method: "POST",
-        body: new URLSearchParams(formData), // Serialize the form data
-        headers: {
+        body: new URLSearchParams(formData),
+        headers: { // Serialize the form data
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
