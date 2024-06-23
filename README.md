@@ -1,7 +1,7 @@
 <h1>URL Shortener Project</h1>
 
 
-This project is a URL shortener application built with Node.js and Express.js. It allows users to shorten URLs, view analytics for each shortened URL (such as total clicks over time), and delete URLs. User authentication is implemented to ensure that only logged-in users can manage their URLs and view analytics.
+This project is a URL shortener application built with Node.js and Express.js. It allows users to shorten URLs, view analytics for each shortened URL (such as total clicks over time), and delete URLs. User authentication is implemented to ensure that only logged-in users can manage their URLs and view analytics and also integrate email otp password reset functionality.
 
 
 <h2>Features</h2>
@@ -13,6 +13,7 @@ This project is a URL shortener application built with Node.js and Express.js. I
         <li>Static file serving</li>
         <li>EJS templating engine</li>
         <li>Error handling for 404 pages</li>
+        <li>Forgot Password using Email OTP</li>
     </ul>
 
    <h2>Prerequisites</h2>
