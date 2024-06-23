@@ -61,23 +61,38 @@ async function deleteURL(req, res) {
     let userid = req.query.userid;
 
     try {
+        // Find the URL entry by shortId
         const urlData = await url.findOne({ shortId: id });
+
+        if (!urlData) {
+            return res.json({ message: "URL not found", error: 1 });
+        }
+
         let objId = urlData._id;
 
-        const data = await user.findByIdAndUpdate(
-            { _id: userid },
+        // Remove the URL from the user's shortURL list
+        const userData = await user.findByIdAndUpdate(
+            userid,
             {
-                $pull: {
-                    shortURL: objId,
-                },
-            }
+                $pull: { shortURL: objId }
+            },
+            { new: true } // Option to return the modified document
         );
-        // console.log(data);
+
+        if (!userData) {
+            return res.json({ message: "User not found", error: 1 });
+        }
+
+        // Delete the URL entry from the URL collection
+        await url.deleteOne({ _id: objId });
+
         res.json({ message: "URL Deleted Successfully!!", error: 0 });
     } catch (error) {
-        res.json({ message: "error in Deletion", error: 1 });
+        console.error(error); // Log the error for debugging purposes
+        res.json({ message: "Error in Deletion", error: 1 });
     }
 }
+
 
 module.exports = {
     handleUserSignup,

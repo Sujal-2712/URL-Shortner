@@ -6,8 +6,8 @@ const generateOTP = require('./otpGenerator');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: "sujalkareliya27@gmail.com",
-    pass: "gdjq biyh gnaw pqnw",
+    user: process.env.EMAIL,
+    pass: process.env.APP_PASSWORD,
   },
 });
 
@@ -21,7 +21,7 @@ async function sendOTP(email) {
   html = html.replace('{{otp}}', otp);
 
   const mailOptions = {
-    from: "sujalkareliya27@gmail.com",
+    from: process.env.EMAIL,
     to: email,
     subject: 'OTP for Password Reset',
     html: html,  // Use HTML instead of text

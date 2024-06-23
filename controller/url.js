@@ -3,7 +3,6 @@ const user = require("./../models/user");
 const URL = require("./../models/url");
 
 
-
 async function handleGenerateNewShortURL(req, res) {
   const body = req.body;
 
@@ -51,7 +50,6 @@ async function handleGenerateNewShortURL(req, res) {
 
 async function handleRedirectURL(req, res) {
   const shortID = req.params.shortID;
-  // console.log(shortID);
   const result = await URL.findOneAndUpdate(
     { shortId: shortID },
     { $push: { visitHistory: { timestamp: Date.now() } } }

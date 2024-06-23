@@ -9,6 +9,7 @@ const cookieparser=require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT;
 
+
 //middlewares
 app.use(express.json());
 app.use(cookieparser());
@@ -21,6 +22,7 @@ const staticPath=path.resolve("./public");
 app.use(express.static(staticPath));
 app.set('view engine','ejs');
 app.set('views',viewsPath);
+app.set('trust proxy', true);
 
 
 //connect database
