@@ -10,20 +10,32 @@ async function handleGenerateNewShortURL(req, res) {
     return res.status(400).json({ error: "URL is required" });
   }
 
-  let shortId = shortid(8);
-  shortId = `bitly${shortId}`;
-
-  const isExists = await URL.findOne({ redirectURL: body.url });
-  if (isExists) {
-    return res.json({message:"Shorten URL is already exists!!",url:isExists.shortId});
+  // Check if the URL already exists in the database
+  const existingURL = await URL.findOne({ redirectURL: body.url });
+  if (existingURL) {
+    return res.json({ message: "Shortened URL already exists!!", url: existingURL.shortId });
   }
 
+  let shortId;
+  let isUnique = false;
+
+  // Generate a unique short ID
+  while (!isUnique) {
+    shortId = `bitly${shortid(8)}`;
+    const existingShortId = await URL.findOne({ shortId: shortId });
+    if (!existingShortId) {
+      isUnique = true;
+    }
+  }
+
+  // Create the new URL entry in the database
   const url = await URL.create({
     shortId: shortId,
     redirectURL: body.url,
     visitHistory: [],
   });
 
+  // If the user is logged in, update their record with the new URL
   if (req.user != null) {
     try {
       const userData = await user.findOneAndUpdate(
@@ -45,8 +57,10 @@ async function handleGenerateNewShortURL(req, res) {
       return res.json({ error: 1 });
     }
   }
-  return res.json({ url: shortId, redirect: body.url});
+
+  return res.json({ url: shortId, redirect: body.url });
 }
+
 
 async function handleRedirectURL(req, res) {
   const shortID = req.params.shortID;

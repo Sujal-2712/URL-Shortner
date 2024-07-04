@@ -26,7 +26,6 @@ app.set('trust proxy', true);
 
 
 //connect database
-console.log(process.env.DATABASE_URL);
 ConnectMongoDb(process.env.DATABASE_URL).then((result) => {
     console.log("Database Connected");
 }).catch((err) => {
