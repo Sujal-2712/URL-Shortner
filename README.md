@@ -81,7 +81,7 @@ DATABASE_URL=your_mongodb_connection_string</code></pre>
         <li><strong>404 Error:</strong> Any undefined route will render the <code>404.ejs</code> template.</li>
     </ul>
     <h2>Live Demo :</h2>
-    <p>https://url-shortner-cs11.onrender.com/</p>
+    <p>https://url-shortner-g9rx.onrender.com/</p>
     <h2>Contact</h2>
     <p>For any questions or feedback, please open an issue or reach out to <code>sujalkareliya27@gmail.com</code>.</p>
 
