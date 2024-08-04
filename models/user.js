@@ -32,5 +32,4 @@ userSchema.methods.generateAuthToken= async function()
 }
 
 const user=mongoose.model('user',userSchema);
-
 module.exports=user;
